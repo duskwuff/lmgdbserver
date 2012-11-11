@@ -4,6 +4,12 @@ lmgdbserver
 A tiny GDB server for the TI Stellaris LaunchPad.
 
 
+Requirements
+------------
+
+* libusb 1.0 or later.
+
+
 Usage
 -----
 
@@ -12,13 +18,20 @@ Usage
     (gdb) target remote | lmgdbserver
 
 If you somehow have a LaunchPad with a nonstandard VID/PID or endpoints, you
-can run `lmgdbserver -h` for the necessary arguments.
+can run `lmgdbserver -h` for the necessary details.
 
 
-Requirements
-------------
+Known bugs
+----------
 
-* libusb 1.0 or later.
+* Hardware breakpoints don't seem to work. This ends up breaking a number of
+  other functions as well, including `finish`.
+
+  As far as I can tell, this is inherent to the GDB stub in the device, so
+  there may not be very much I can do about it.
+
+* Quitting GDB will leave the device in a stopped state. You'll have to power
+  cycle the target to get it working normally again.
 
 
 License
